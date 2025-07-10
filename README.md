@@ -42,23 +42,6 @@ pip install -r requirements.txt
 
 ---
 
-## 🧩 requirements.txt
-
-```
-ultralytics
-easyocr
-gtts
-selenium
-opencv-python
-```
-
-Create this file in the same directory with above contents or run:
-
-```bash
-pip freeze > requirements.txt
-```
-
----
 
 ## 🖼️ Usage
 
