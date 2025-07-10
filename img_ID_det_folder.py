@@ -6,8 +6,8 @@ import re
 from collections import defaultdict
 
 # === Config ===
-image_input_path = r"C:\Users\Avi\Desktop\Projects\PY Programming\Proj\dataset\images\val"
-model_path = "runs/detect/train4/weights/best.pt"
+image_input_path = r"C:\Users\<username>\<your folder path>"
+model_path = "mymodel.pt"
 final_output_dir = "final_outputs"
 idcard_output_dir = "idcard_outputs"
 os.makedirs(final_output_dir, exist_ok=True)
