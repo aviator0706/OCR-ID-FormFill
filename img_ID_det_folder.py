@@ -4,6 +4,7 @@ import easyocr
 from ultralytics import YOLO
 import re
 from collections import defaultdict
+from gtts import gTTS
 
 # === Config ===
 image_input_path = r"C:\Users\<username>\<your folder path>"
@@ -129,7 +130,10 @@ for img_path in image_files:
     if raw_boxes:
         filtered_boxes = non_max_suppression_area(raw_boxes, iou_thresh=0.4)
         text_output_path = os.path.join(final_output_dir, f"{base_name}.txt")
+        audio_output_path = os.path.join(final_output_dir, f"{base_name}.mp3")
         img_final = img.copy()
+        all_lines = []
+
         with open(text_output_path, "w", encoding="utf-8") as txt_file:
             for x1, y1, x2, y2 in filtered_boxes:
                 crop = img[y1:y2, x1:x2]
@@ -138,11 +142,20 @@ for img_path in image_files:
                     cleaned_text = line.strip()
                     if cleaned_text:
                         txt_file.write(cleaned_text + "\n")
+                        all_lines.append(cleaned_text)
                 text_for_box = " | ".join(ocr_result)[:30]
                 cv2.rectangle(img_final, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.putText(img_final, text_for_box, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+
+        # Save annotated image
         out_img_path = os.path.join(final_output_dir, f"{base_name}.jpg")
         cv2.imwrite(out_img_path, img_final)
+
+        # Generate and save audio
+        if all_lines:
+            joined_text = ". ".join(all_lines)
+            tts = gTTS(joined_text)
+            tts.save(audio_output_path)
 
     # --- Second: class 3+ fields ---
     raw_fields = defaultdict(set)
