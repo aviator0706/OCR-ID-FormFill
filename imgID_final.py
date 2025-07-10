@@ -6,8 +6,8 @@ from collections import defaultdict
 from gtts import gTTS
 
 # === Config ===
-image_input_path = "idss.png"
-model_path = "runs/detect/train4/weights/best.pt"
+image_input_path = "image.png"
+model_path = "mymodel.pt"
 
 yolo_model = YOLO(model_path)
 ocr_reader = easyocr.Reader(['en'])
