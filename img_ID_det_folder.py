@@ -5,10 +5,18 @@ from ultralytics import YOLO
 import re
 from collections import defaultdict
 from gtts import gTTS
+import tkinter as tk
+from tkinter import filedialog
 
-# === Config ===
-image_input_path = r"C:\Users\<username>\<your folder path>"
-model_path = "mymodel.pt"
+root = tk.Tk()
+root.withdraw()
+image_input_path = filedialog.askdirectory(title="Select Folder with Images")
+
+if not image_input_path:
+    print("No folder selected. Exiting.")
+    exit()
+
+model_path = "Mymodel.pt"
 final_output_dir = "final_outputs"
 idcard_output_dir = "idcard_outputs"
 os.makedirs(final_output_dir, exist_ok=True)
@@ -37,9 +45,10 @@ def non_max_suppression_area(boxes, iou_thresh=0.4):
 
 # --- Class mapping and field normalization ---
 class_map = {
-    3: "Surname", 4: "Name", 5: "Nationality", 6: "Sex", 7: "Date of Birth",
-    8: "Place of Birth", 9: "Issue Date", 10: "Expiry Date", 11: "Issuing Office",
-    12: "Height", 13: "Type", 14: "Country", 15: "Passport No", 16: "Personal No", 17: "Card No"
+    1: "Surname", 2: "Name", 3: "Nationality", 4: "Sex", 5: "Date of Birth",
+    6: "Place of Birth", 7: "Issue Date", 8: "Expiry Date", 9: "Issuing Office",
+    10: "Height", 11: "Type", 12: "Country", 13: "Passport No",
+    14: "Personal No", 15: "Card No"
 }
 field_equivalents = {
     "Country": ["Country", "Code of State", "Code of Issuing State", "Codeof Issulng State", "ICode of State"],
@@ -124,7 +133,7 @@ for img_path in image_files:
     raw_boxes = []
     for box in boxes:
         class_id = int(box.cls[0])
-        if class_id in [0, 1, 2]:
+        if class_id == 0 :
             x1, y1, x2, y2 = map(int, box.xyxy[0])
             raw_boxes.append((x1, y1, x2, y2))
     if raw_boxes:
