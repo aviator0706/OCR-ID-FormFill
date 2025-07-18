@@ -4,7 +4,7 @@
 
 You can download the pre-trained YOLOv8 model used in this project from the link below:
 
-🔗 [Download mymodel.pt from Google Drive](https://drive.google.com/file/d/1CGIJbArdnLkaho8D-ibmCSoMe9D_krLH/view?usp=sharing)
+🔗 [Download mymodel.pt from Google Drive](https://drive.google.com/file/d/1Ho7zi_UJFrgC0zxBLQyoOygy--_zpUzX/view?usp=sharing)
 
 📁 **Save it as:** `mymodel.pt`  
 📂 **Location:** Put this file in the **root project folder**, like this:
